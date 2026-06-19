@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Oficial | Playeras Selección Nacional</title>
+    <!-- Iconos profesionales vía Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --verde-mex: #0b3c26;         /* Verde pino del escudo */
+            --negro-carbon: #111111;       /* Tonos oscuros de contraste */
+            --rojo-mex: #ce1126;           /* Color de acentos y precios */
+            --oro-escudo: #b89243;         /* Dorado premium del arte del logotipo */
+            --blanco-cristal: rgba(255, 255, 255, 0.92); /* Fondos legibles sobre la playera */
+            --whatsapp-color: #25d366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            /* REQUERIMIENTO: Fondo con la playera de la selección mexicana */
+            background-image: url('playera-fondo.jpg'); /* Reemplaza con tu archivo de imagen local */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--negro-carbon);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Capa tricolor sutil para proteger la legibilidad sobre la playera de fondo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg, 
+                rgba(11, 60, 38, 0.85) 0%,   
+                rgba(255, 255, 255, 0.90) 35%,  
+                rgba(255, 255, 255, 0.90) 65%,  
+                rgba(206, 17, 38, 0.85) 100%
+            );
+            z-index: -1;
+        }
+
+        /* Asegurar orden de capas */
+        .anuncio-bar, header, section, main, footer, .whatsapp-float {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Barra de avisos */
+        .anuncio-bar {
+            background-color: var(--negro-carbon);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            border-bottom: 3px solid var(--oro-escudo);
+        }
+
+        /* Encabezado con el Logotipo Referenciado */
+        header {
+            background-color: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .contenedor-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-principal {
+            /* REQUERIMIENTO: Logotipo oficial de la imagen proporcionada */
+            height: 70px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 6px rgba(0,0,0,0.12));
+        }
+
+        nav a {
+            color: var(--negro-carbon);
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 2rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.activo {
+            color: var(--verde-mex);
+        }
+
+        /* Hero Banner Principal */
+        .hero-banner {
+            background-color: var(--blanco-cristal);
+            padding: 4rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 2rem 5% 0 5%;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .hero-info {
+            max-width: 600px;
+        }
+
+        .hero-info h2 {
+            font-size: 2.8rem;
+            color: var(--verde-mex);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-info p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn-principal {
+            background-color: var(--negro-carbon);
+            color: #fff;
+            padding: 14px 35px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: inline-block;
+            transition: all 0.3s;
+            border-radius: 6px;
+        }
+
+        .btn-principal:hover {
+            background-color: var(--verde-mex);
+            box-shadow: 0 4px 15px rgba(11, 60, 38, 0.4);
+        }
+
+        .hero-badge img {
+            height: 240px;
+            width: auto;
+            animation: flotacionEfecto 4s ease-in-out infinite;
+        }
+
+        @keyframes flotacionEfecto {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Sección de Catálogo */
+        .catalogo {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--negro-carbon);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .divisor-patrio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 4rem;
+        }
+
+        .divisor-patrio .linea {
+            height: 3px;
+            width: 80px;
+            border-radius: 4px;
+        }
+        .linea.izq { background-color: var(--verde-mex); }
+        .linea.der { background-color: var(--rojo-mex); }
+
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .tarjeta-producto {
+            background-color: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(0,0,0,0.06);
+            padding: 2.5rem 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        .tarjeta-producto:hover {
+            box-shadow: 0 15px 35px rgba(11, 60, 38, 0.12);
+            border-color: var(--oro-escudo);
+            transform: translateY(-8px);
+        }
+
+        .contenedor-prenda {
+            background-color: #f8faf9;
+            height: 290px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            border-radius: 8px;
+        }
+
+        .producto-titulo {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--negro-carbon);
+        }
+
+        .producto-precio {
+            font-size: 1.3rem;
+            color: var(--rojo-mex);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-comprar {
+            background-color: transparent;
+            color: var(--negro-carbon);
+            border: 2px solid var(--negro-carbon);
+            width: 100%;
+            padding: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-comprar:hover {
+            background-color: var(--negro-carbon);
+            color: #fff;
+        }
+
+        /* REQUERIMIENTO: Iconos e Información de Contacto */
+        .canales-contacto {
+            display: flex;
+            justify-content: center;
+            gap: 3.5rem;
+            margin: 1.5rem 0 2.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .enlace-contacto {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.2s;
+            padding: 8px 15px;
+        }
+
+        .enlace-contacto i {
+            font-size: 1.4rem;
+        }
+
+        .enlace-contacto:hover {
+            color: #ffffff;
+        }
+
+        /* Colores temáticos para cada icono */
+        .contacto-wa i { color: var(--whatsapp-color); }
+        .contacto-email i { color: #29b6f6; }
+        .contacto-tel i { color: var(--oro-escudo); }
+
+        /* REQUERIMIENTO: Icono Flotante de WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--whatsapp-color);
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 2000;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15) rotate(8deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(17, 17, 17, 0.98);
+            color: rgba(255, 255, 255, 0.6);
+            border-top: 4px solid var(--verde-mex);
+            padding: 4rem 5% 2rem 5%;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Icono Flotante de WhatsApp -->
+    <a href="https://wa.me/5215500000000" class="whatsapp-float" target="_blank" title="Ventas Express por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Barra de Anuncios Superior -->
+    <div class="anuncio-bar">
+        NUEVA ARMADURA DISPONIBLE • EDICIÓN LIMITADA CON EL ESCUDO TRICOLOR DE MÉXICO
+    </div>
+
+    <!-- Menú de Navegación y Logotipo principal -->
+    <header>
+        <div class="contenedor-logo">
+            <!-- Utiliza el escudo oficial como logotipo principal -->
+            <img src="ChatGPT Image 18 jun 2026, 11_18_18_2.jpg" alt="Logotipo Oficial Selección de México" class="logo-principal">
+        </div>
+        <nav>
+            <a href="#" class="activo">Modelos</a>
+            <a href="#">Guía de Tallas</a>
+            <a href="#">Ayuda</a>
+        </nav>
+    </header>
+
+    <!-- Banner Principal (Hero) -->
+    <section class="hero-banner">
+        <div class="hero-info">
+            <h2>El Escudo de una Nación, Diseñado para la Gloria.</h2>
+            <p>Adquiere hoy mismo las nuevas playeras de la Selección Nacional. Confeccionadas con materiales ultra ligeros de última generación y un diseño patrio imponente que destaca en cualquier rincón del mundo.</p>
+            <a href="#productos" class="btn-principal">Ver Colección</a>
+        </div>
+        <div class="hero-badge">
+            <!-- Muestra destacada del Escudo de la imagen de referencia -->
+            <img src="ChatGPT Image 18 jun 2026, 11_18_18_2.jpg" alt="Emblema Oficial de México">
+        </div>
+    </section>
+
+    <!-- Sección de Catálogo de Playeras -->
+    <main class="catalogo" id="productos">
+        <h3 class="titulo-seccion">Elige tu Armadura</h3>
+        
+        <div class="divisor-patrio">
+            <div class="linea izq"></div>
+            <div style="font-size: 1.4rem; color: var(--oro-escudo);">🦅</div>
+            <div class="linea der"></div>
+        </div>
+
+        <div class="grid-productos">
+            <!-- Producto 1 -->
+            <div class="tarjeta-producto">
+                <div class="contenedor-prenda" style="color: var(--verde-mex)">👕</div>
+                <h4 class="producto-titulo">Jersey Local - Verde Sagrado Nacional</h4>
+                <p class="producto-precio">$1,799.00 MXN</p>
+                <button class="btn-comprar">Comprar Ahora</button>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="tarjeta-producto">
+                <div class="contenedor-prenda" style="color: #555;">👕</div>
+                <h4 class="producto-titulo">Jersey Visitante - Blanco Guerrero Texturizado</h4>
+                <p class="producto-precio">$1,799.00 MXN</p>
+                <button class="btn-comprar">Comprar Ahora</button>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="tarjeta-producto">
+                <div class="contenedor-prenda" style="color: var(--rojo-mex)">👕</div>
+                <h4 class="producto-titulo">Jersey Alternativo - Edición Especial Negra/Oro</h4>
+                <p class="producto-precio">$1,999.00 MXN</p>
+                <button class="btn-comprar">Comprar Ahora</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página con los Canales de Contacto requeridos -->
+    <footer>
+        <div class="canales-contacto">
+            <!-- WhatsApp -->
+            <a href="https://wa.me/5215500000000" class="enlace-contacto contacto-wa" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp: 55 0000 0000
+            </a>
+            <!-- E-mail -->
+            <a href="mailto:contacto@seleccionmexshop.com" class="enlace-contacto contacto-email">
+                <i class="fa-solid fa-envelope"></i> contacto@seleccionmexshop.com
+            </a>
+            <!-- Teléfono -->
+            <a href="tel:+525512345678" class="enlace-contacto contacto-tel">
+                <i class="fa-solid fa-phone"></i> Teléfono: 55 1234 5678
+            </a>
+        </div>
+        
+        <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;">
+
+        <p>&copy; 2026 Tienda Oficial de Aficionados de la Selección Mexicana. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
